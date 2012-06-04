@@ -52,7 +52,6 @@
             this.nupKomada = new System.Windows.Forms.NumericUpDown();
             this.lblKomada = new System.Windows.Forms.Label();
             this.cmbTip = new System.Windows.Forms.ComboBox();
-            this.tipBS = new System.Windows.Forms.BindingSource(this.components);
             this.txtGodina = new System.Windows.Forms.TextBox();
             this.lblGodina = new System.Windows.Forms.Label();
             this.lblTip = new System.Windows.Forms.Label();
@@ -65,6 +64,7 @@
             this.naslovDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.autorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tipidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.tipBS = new System.Windows.Forms.BindingSource(this.components);
             this.godinaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.izdavacidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.komadaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -117,7 +117,6 @@
             this.tmrClearStatus = new System.Windows.Forms.Timer(this.components);
             this.korisnikTA = new Knjiznica.KnjiznicaDSTableAdapters.korisnikTA();
             this.posudbeTA = new Knjiznica.KnjiznicaDSTableAdapters.posudbeTA();
-            this.fKknjigatipBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tbcMenu.SuspendLayout();
             this.tabKatalog.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spcKatalog)).BeginInit();
@@ -130,9 +129,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.izdavacBS)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.knjigaBS)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nupKomada)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tipBS)).BeginInit();
             this.grpPrikaz.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvKatalog)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tipBS)).BeginInit();
             this.tabKorisnici.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scpKorisnici)).BeginInit();
             this.scpKorisnici.Panel1.SuspendLayout();
@@ -147,7 +146,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvPosudbe)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.posudbeBS)).BeginInit();
             this.stsStatus.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.fKknjigatipBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // tbcMenu
@@ -273,6 +271,7 @@
             // 
             this.cmbKategorija.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbKategorija.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.knjigaBS, "kategorija_id", true));
             this.cmbKategorija.DataSource = this.kategorijaBS;
             this.cmbKategorija.DisplayMember = "naziv";
             this.cmbKategorija.FormattingEnabled = true;
@@ -305,6 +304,7 @@
             // 
             this.cmbIzdavac.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbIzdavac.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.knjigaBS, "izdavac_id", true));
             this.cmbIzdavac.DataSource = this.izdavacBS;
             this.cmbIzdavac.DisplayMember = "naziv";
             this.cmbIzdavac.FormattingEnabled = true;
@@ -394,16 +394,15 @@
             // 
             this.cmbTip.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbTip.DataBindings.Add(new System.Windows.Forms.Binding("SelectedValue", this.knjigaBS, "tip_id", true));
+            this.cmbTip.DataSource = this.tipBS;
+            this.cmbTip.DisplayMember = "naziv";
             this.cmbTip.FormattingEnabled = true;
             this.cmbTip.Location = new System.Drawing.Point(80, 90);
             this.cmbTip.Name = "cmbTip";
             this.cmbTip.Size = new System.Drawing.Size(256, 21);
             this.cmbTip.TabIndex = 2;
-            // 
-            // tipBS
-            // 
-            this.tipBS.DataMember = "tbl_tip";
-            this.tipBS.DataSource = this.knjiznicaDS;
+            this.cmbTip.ValueMember = "id";
             // 
             // txtGodina
             // 
@@ -507,7 +506,6 @@
             this.dgvKatalog.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvKatalog.Size = new System.Drawing.Size(865, 515);
             this.dgvKatalog.TabIndex = 1;
-            this.dgvKatalog.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dgvKatalog_MouseDoubleClick);
             // 
             // naslovDataGridViewTextBoxColumn
             // 
@@ -536,6 +534,11 @@
             this.tipidDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.tipidDataGridViewTextBoxColumn.ValueMember = "id";
             this.tipidDataGridViewTextBoxColumn.Width = 47;
+            // 
+            // tipBS
+            // 
+            this.tipBS.DataMember = "tbl_tip";
+            this.tipBS.DataSource = this.knjiznicaDS;
             // 
             // godinaDataGridViewTextBoxColumn
             // 
@@ -1004,11 +1007,6 @@
             // 
             this.posudbeTA.ClearBeforeFill = true;
             // 
-            // fKknjigatipBindingSource
-            // 
-            this.fKknjigatipBindingSource.DataMember = "FK_knjiga_tip";
-            this.fKknjigatipBindingSource.DataSource = this.tipBS;
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1033,9 +1031,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.izdavacBS)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.knjigaBS)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nupKomada)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tipBS)).EndInit();
             this.grpPrikaz.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvKatalog)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tipBS)).EndInit();
             this.tabKorisnici.ResumeLayout(false);
             this.scpKorisnici.Panel1.ResumeLayout(false);
             this.scpKorisnici.Panel2.ResumeLayout(false);
@@ -1052,7 +1050,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.posudbeBS)).EndInit();
             this.stsStatus.ResumeLayout(false);
             this.stsStatus.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.fKknjigatipBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1148,7 +1145,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn autorDataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn datumizdavanjaDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn datumrazduzenjaDataGridViewTextBoxColumn;
-        private System.Windows.Forms.BindingSource fKknjigatipBindingSource;
     }
 }
 

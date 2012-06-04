@@ -30,9 +30,6 @@ namespace Knjiznica
 
             // 3. tab
             this.posudbeTA.Fill(this.knjiznicaDS.posudbe);
-
-            cmbTip.DataSource = knjiznicaDS;
-
         }
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
