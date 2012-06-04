@@ -65,44 +65,6 @@ namespace Knjiznica
 
         private void btnAzuriraj_Click(object sender, EventArgs e)
         {
-            string dump = "Naslov: " + txtNaslov.Text + "\n";
-            dump += "Tip: " + cmbTip.Text + "\n";
-            dump += "Izdavač: " + cmbIzdavac.Text + "\n";
-            dump += "Godina: " + txtGodina.Text + "\n";
-            dump += "Komada: " + nupKomada.Value + "\n";
-            dump += "ISBN10: " + txtISBN10.Text + "\n";
-            dump += "ISBN13: " + txtISBN13.Text + "\n";
-            dump += "Kategorija: " + cmbKategorija.Text;
-            MessageBox.Show(dump);
-
-            // postoji li već tip u bazi
-            KnjiznicaDS.tbl_tipDataTable tip = tipTA.GetDataByNaziv(cmbTip.Text);
-            // ako tip ne postoji u bazi kreiraj novi
-            if (tip.Rows.Count < 1)
-            {
-                tipTA.InsertByNaziv(cmbTip.Text);
-                dgvKatalog.Refresh();
-            }
-            //
-            KnjiznicaDS.tbl_tipDataTable tipp = tipTA.GetDataByNaziv(cmbTip.Text);
-            int tipId = Convert.ToInt32(tipp.Rows[0]["id"]);
-            dgvKatalog.CurrentRow.Cells[2].Value = tipId;
-
-
-            // postoji li već izdavač u bazi
-            KnjiznicaDS.tbl_izdavacDataTable izdavac = izdavacTA.GetDataByNaziv(cmbIzdavac.Text);
-            // ako tip ne postoji u bazi kreiraj novi
-            if (izdavac.Rows.Count < 1)
-            {
-                izdavacTA.InsertByNaziv(cmbIzdavac.Text);
-                dgvKatalog.Refresh();
-            }
-            //
-            KnjiznicaDS.tbl_izdavacDataTable izdavacc = izdavacTA.GetDataByNaziv(cmbIzdavac.Text);
-            int izdavacId = Convert.ToInt32(izdavacc.Rows[0]["id"]);
-            dgvKatalog.CurrentRow.Cells[4].Value = izdavacId;
-
-
             this.knjigaBS.EndEdit();
             this.knjigaTA.Update(knjiznicaDS);
             dgvKatalog.Refresh();
