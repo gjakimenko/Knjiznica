@@ -50,6 +50,44 @@ namespace Knjiznica
             this.tmrClearStatus.Start();
         }
 
+        private int findOrCreateTip(string tipNaziv)
+        {
+            // create new datasource and table adapter for temp data
+            KnjiznicaDS newKnjiznicaDS = new KnjiznicaDS();
+            KnjiznicaDSTableAdapters.tipTA singleTipTA = new KnjiznicaDSTableAdapters.tipTA();
+            singleTipTA.FillByNaziv(newKnjiznicaDS.tbl_tip, tipNaziv);
+
+            if (newKnjiznicaDS.tbl_tip.Count > 0)
+            {
+                return newKnjiznicaDS.tbl_tip.First().id;
+            }
+            else
+            {
+                singleTipTA.InsertByNaziv(tipNaziv);
+                this.tipTA.Fill(knjiznicaDS.tbl_tip);
+                return findOrCreateTip(tipNaziv);
+            }
+        }
+
+        private int findOrCreateIzdavac(string izdavacNaziv)
+        {
+            // create new datasource and table adapter for temp data
+            KnjiznicaDS newKnjiznicaDS = new KnjiznicaDS();
+            KnjiznicaDSTableAdapters.izdavacTA singleIzdavacTA = new KnjiznicaDSTableAdapters.izdavacTA();
+            singleIzdavacTA.FillByNaziv(newKnjiznicaDS.tbl_izdavac, izdavacNaziv);
+
+            if (newKnjiznicaDS.tbl_izdavac.Count > 0)
+            {
+                return newKnjiznicaDS.tbl_izdavac.First().id;
+            }
+            else
+            {
+                singleIzdavacTA.InsertByNaziv(izdavacNaziv);
+                this.izdavacTA.Fill(knjiznicaDS.tbl_izdavac);
+                return findOrCreateIzdavac(izdavacNaziv);
+            }
+        }
+
         private void tmrClearStatus_Tick(object sender, EventArgs e)
         {
             // nakon što timer istekne, makni tekst iz trake i zaustavi timer
@@ -65,6 +103,10 @@ namespace Knjiznica
 
         private void btnAzuriraj_Click(object sender, EventArgs e)
         {
+            //MessageBox.Show(findOrCreateTip(cmbTip.Text).ToString());
+            dgvKatalog.CurrentRow.Cells[2].Value = findOrCreateTip(cmbTip.Text);
+            dgvKatalog.CurrentRow.Cells[4].Value = findOrCreateIzdavac(cmbIzdavac.Text);
+
             this.knjigaBS.EndEdit();
             this.knjigaTA.Update(knjiznicaDS);
             dgvKatalog.Refresh();
