@@ -2068,6 +2068,8 @@ namespace Knjiznica {
             
             private global::System.Data.DataColumn columndatum_razduzenja;
             
+            private global::System.Data.DataColumn columnrazduzena;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public tbl_posudbaDataTable() {
@@ -2143,6 +2145,14 @@ namespace Knjiznica {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn razduzenaColumn {
+                get {
+                    return this.columnrazduzena;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -2178,14 +2188,15 @@ namespace Knjiznica {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public tbl_posudbaRow Addtbl_posudbaRow(tbl_knjigaRow parenttbl_knjigaRowByFK_ISBN10, tbl_korisnikRow parenttbl_korisnikRowByFK_korisnik, System.DateTime datum_izdavanja, System.DateTime datum_razduzenja) {
+            public tbl_posudbaRow Addtbl_posudbaRow(tbl_knjigaRow parenttbl_knjigaRowByFK_ISBN10, tbl_korisnikRow parenttbl_korisnikRowByFK_korisnik, System.DateTime datum_izdavanja, System.DateTime datum_razduzenja, bool razduzena) {
                 tbl_posudbaRow rowtbl_posudbaRow = ((tbl_posudbaRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         null,
                         null,
                         datum_izdavanja,
-                        datum_razduzenja};
+                        datum_razduzenja,
+                        razduzena};
                 if ((parenttbl_knjigaRowByFK_ISBN10 != null)) {
                     columnValuesArray[1] = parenttbl_knjigaRowByFK_ISBN10[0];
                 }
@@ -2226,6 +2237,7 @@ namespace Knjiznica {
                 this.columnkorisnik_id = base.Columns["korisnik_id"];
                 this.columndatum_izdavanja = base.Columns["datum_izdavanja"];
                 this.columndatum_razduzenja = base.Columns["datum_razduzenja"];
+                this.columnrazduzena = base.Columns["razduzena"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2241,6 +2253,8 @@ namespace Knjiznica {
                 base.Columns.Add(this.columndatum_izdavanja);
                 this.columndatum_razduzenja = new global::System.Data.DataColumn("datum_razduzenja", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columndatum_razduzenja);
+                this.columnrazduzena = new global::System.Data.DataColumn("razduzena", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnrazduzena);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnid}, true));
                 this.columnid.AutoIncrement = true;
@@ -2251,6 +2265,7 @@ namespace Knjiznica {
                 this.columnid.Unique = true;
                 this.columnISBN10.AllowDBNull = false;
                 this.columnkorisnik_id.AllowDBNull = false;
+                this.columnrazduzena.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2400,6 +2415,10 @@ namespace Knjiznica {
             
             private global::System.Data.DataColumn columndatum_razduzenja;
             
+            private global::System.Data.DataColumn columnrazduzena;
+            
+            private global::System.Data.DataColumn columnkorisnik_id;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public posudbeDataTable() {
@@ -2499,6 +2518,22 @@ namespace Knjiznica {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn razduzenaColumn {
+                get {
+                    return this.columnrazduzena;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn korisnik_idColumn {
+                get {
+                    return this.columnkorisnik_id;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -2534,7 +2569,7 @@ namespace Knjiznica {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public posudbeRow AddposudbeRow(int id, string ime, string prezime, double ISBN10, string naslov, string autor, System.DateTime datum_izdavanja, System.DateTime datum_razduzenja) {
+            public posudbeRow AddposudbeRow(int id, string ime, string prezime, double ISBN10, string naslov, string autor, System.DateTime datum_izdavanja, System.DateTime datum_razduzenja, bool razduzena, int korisnik_id) {
                 posudbeRow rowposudbeRow = ((posudbeRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         id,
@@ -2544,7 +2579,9 @@ namespace Knjiznica {
                         naslov,
                         autor,
                         datum_izdavanja,
-                        datum_razduzenja};
+                        datum_razduzenja,
+                        razduzena,
+                        korisnik_id};
                 rowposudbeRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowposudbeRow);
                 return rowposudbeRow;
@@ -2575,6 +2612,8 @@ namespace Knjiznica {
                 this.columnautor = base.Columns["autor"];
                 this.columndatum_izdavanja = base.Columns["datum_izdavanja"];
                 this.columndatum_razduzenja = base.Columns["datum_razduzenja"];
+                this.columnrazduzena = base.Columns["razduzena"];
+                this.columnkorisnik_id = base.Columns["korisnik_id"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2596,12 +2635,18 @@ namespace Knjiznica {
                 base.Columns.Add(this.columndatum_izdavanja);
                 this.columndatum_razduzenja = new global::System.Data.DataColumn("datum_razduzenja", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columndatum_razduzenja);
+                this.columnrazduzena = new global::System.Data.DataColumn("razduzena", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnrazduzena);
+                this.columnkorisnik_id = new global::System.Data.DataColumn("korisnik_id", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnkorisnik_id);
                 this.columnid.AllowDBNull = false;
                 this.columnime.MaxLength = 50;
                 this.columnprezime.MaxLength = 50;
                 this.columnISBN10.AllowDBNull = false;
                 this.columnnaslov.MaxLength = 512;
                 this.columnautor.MaxLength = 255;
+                this.columnrazduzena.AllowDBNull = false;
+                this.columnkorisnik_id.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3447,6 +3492,17 @@ namespace Knjiznica {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool razduzena {
+                get {
+                    return ((bool)(this[this.tabletbl_posudba.razduzenaColumn]));
+                }
+                set {
+                    this[this.tabletbl_posudba.razduzenaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public tbl_knjigaRow tbl_knjigaRow {
                 get {
                     return ((tbl_knjigaRow)(this.GetParentRow(this.Table.ParentRelations["FK_ISBN10"])));
@@ -3621,6 +3677,28 @@ namespace Knjiznica {
                 }
                 set {
                     this[this.tableposudbe.datum_razduzenjaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool razduzena {
+                get {
+                    return ((bool)(this[this.tableposudbe.razduzenaColumn]));
+                }
+                set {
+                    this[this.tableposudbe.razduzenaColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int korisnik_id {
+                get {
+                    return ((int)(this[this.tableposudbe.korisnik_idColumn]));
+                }
+                set {
+                    this[this.tableposudbe.korisnik_idColumn] = value;
                 }
             }
             
@@ -6457,10 +6535,11 @@ SELECT id, ime, prezime, email, broj_telefona FROM tbl_korisnik WHERE (id = @id)
             tableMapping.ColumnMappings.Add("korisnik_id", "korisnik_id");
             tableMapping.ColumnMappings.Add("datum_izdavanja", "datum_izdavanja");
             tableMapping.ColumnMappings.Add("datum_razduzenja", "datum_razduzenja");
+            tableMapping.ColumnMappings.Add("razduzena", "razduzena");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[tbl_posudba] WHERE (([id] = @Original_id) AND ([ISBN10] = @Original_ISBN10) AND ([korisnik_id] = @Original_korisnik_id) AND ((@IsNull_datum_izdavanja = 1 AND [datum_izdavanja] IS NULL) OR ([datum_izdavanja] = @Original_datum_izdavanja)) AND ((@IsNull_datum_razduzenja = 1 AND [datum_razduzenja] IS NULL) OR ([datum_razduzenja] = @Original_datum_razduzenja)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [tbl_posudba] WHERE (([id] = @Original_id) AND ([ISBN10] = @Original_ISBN10) AND ([korisnik_id] = @Original_korisnik_id) AND ((@IsNull_datum_izdavanja = 1 AND [datum_izdavanja] IS NULL) OR ([datum_izdavanja] = @Original_datum_izdavanja)) AND ((@IsNull_datum_razduzenja = 1 AND [datum_razduzenja] IS NULL) OR ([datum_razduzenja] = @Original_datum_razduzenja)) AND ([razduzena] = @Original_razduzena))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ISBN10", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ISBN10", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
@@ -6469,24 +6548,27 @@ SELECT id, ime, prezime, email, broj_telefona FROM tbl_korisnik WHERE (id = @id)
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_datum_izdavanja", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "datum_izdavanja", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_datum_razduzenja", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "datum_razduzenja", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_datum_razduzenja", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "datum_razduzenja", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_razduzena", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "razduzena", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[tbl_posudba] ([ISBN10], [korisnik_id], [datum_izdavanja], [datum_razduzenja]) VALUES (@ISBN10, @korisnik_id, @datum_izdavanja, @datum_razduzenja);
-SELECT id, ISBN10, korisnik_id, datum_izdavanja, datum_razduzenja FROM tbl_posudba WHERE (id = SCOPE_IDENTITY())";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [tbl_posudba] ([ISBN10], [korisnik_id], [datum_izdavanja], [datum_razduzenja], [razduzena]) VALUES (@ISBN10, @korisnik_id, @datum_izdavanja, @datum_razduzenja, @razduzena);
+SELECT id, ISBN10, korisnik_id, datum_izdavanja, datum_razduzenja, razduzena FROM tbl_posudba WHERE (id = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ISBN10", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ISBN10", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@korisnik_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "korisnik_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@datum_izdavanja", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "datum_izdavanja", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@datum_razduzenja", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "datum_razduzenja", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@razduzena", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "razduzena", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[tbl_posudba] SET [ISBN10] = @ISBN10, [korisnik_id] = @korisnik_id, [datum_izdavanja] = @datum_izdavanja, [datum_razduzenja] = @datum_razduzenja WHERE (([id] = @Original_id) AND ([ISBN10] = @Original_ISBN10) AND ([korisnik_id] = @Original_korisnik_id) AND ((@IsNull_datum_izdavanja = 1 AND [datum_izdavanja] IS NULL) OR ([datum_izdavanja] = @Original_datum_izdavanja)) AND ((@IsNull_datum_razduzenja = 1 AND [datum_razduzenja] IS NULL) OR ([datum_razduzenja] = @Original_datum_razduzenja)));
-SELECT id, ISBN10, korisnik_id, datum_izdavanja, datum_razduzenja FROM tbl_posudba WHERE (id = @id)";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [tbl_posudba] SET [ISBN10] = @ISBN10, [korisnik_id] = @korisnik_id, [datum_izdavanja] = @datum_izdavanja, [datum_razduzenja] = @datum_razduzenja, [razduzena] = @razduzena WHERE (([id] = @Original_id) AND ([ISBN10] = @Original_ISBN10) AND ([korisnik_id] = @Original_korisnik_id) AND ((@IsNull_datum_izdavanja = 1 AND [datum_izdavanja] IS NULL) OR ([datum_izdavanja] = @Original_datum_izdavanja)) AND ((@IsNull_datum_razduzenja = 1 AND [datum_razduzenja] IS NULL) OR ([datum_razduzenja] = @Original_datum_razduzenja)) AND ([razduzena] = @Original_razduzena));
+SELECT id, ISBN10, korisnik_id, datum_izdavanja, datum_razduzenja, razduzena FROM tbl_posudba WHERE (id = @id)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ISBN10", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ISBN10", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@korisnik_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "korisnik_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@datum_izdavanja", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "datum_izdavanja", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@datum_razduzenja", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "datum_razduzenja", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@razduzena", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "razduzena", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ISBN10", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ISBN10", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_korisnik_id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "korisnik_id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
@@ -6494,6 +6576,7 @@ SELECT id, ISBN10, korisnik_id, datum_izdavanja, datum_razduzenja FROM tbl_posud
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_datum_izdavanja", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "datum_izdavanja", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_datum_razduzenja", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "datum_razduzenja", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_datum_razduzenja", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "datum_razduzenja", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_razduzena", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "razduzena", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
@@ -6507,23 +6590,51 @@ SELECT id, ISBN10, korisnik_id, datum_izdavanja, datum_razduzenja FROM tbl_posud
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[2];
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[6];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT id, ISBN10, korisnik_id, datum_izdavanja, datum_razduzenja FROM dbo.tbl_po" +
-                "sudba";
+            this._commandCollection[0].CommandText = "SELECT id, ISBN10, korisnik_id, datum_izdavanja, datum_razduzenja, razduzena FROM" +
+                " tbl_posudba";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = @"INSERT INTO tbl_posudba
+            this._commandCollection[1].CommandText = "SELECT        id, ISBN10, korisnik_id, datum_izdavanja, datum_razduzenja, razduze" +
+                "na\r\nFROM            tbl_posudba\r\nWHERE        (id = @id)";
+            this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[2].Connection = this.Connection;
+            this._commandCollection[2].CommandText = "SELECT id, ISBN10, korisnik_id, datum_izdavanja, datum_razduzenja, razduzena FROM" +
+                " tbl_posudba WHERE (ISBN10 = @ISBN10)";
+            this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ISBN10", global::System.Data.SqlDbType.Float, 8, global::System.Data.ParameterDirection.Input, 0, 0, "ISBN10", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[3] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[3].Connection = this.Connection;
+            this._commandCollection[3].CommandText = "SELECT        id, ISBN10, korisnik_id, datum_izdavanja, datum_razduzenja, razduze" +
+                "na\r\nFROM            tbl_posudba\r\nWHERE        (korisnik_id = @korisnikId)";
+            this._commandCollection[3].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@korisnikId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "korisnik_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[4] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[4].Connection = this.Connection;
+            this._commandCollection[4].CommandText = @"INSERT INTO tbl_posudba
                          (ISBN10, korisnik_id, datum_izdavanja, datum_razduzenja)
 VALUES        (@ISBN10,@korisnik_id,@datum_izdavanja,@datum_razduzenja); 
 SELECT id, ISBN10, korisnik_id, datum_izdavanja, datum_razduzenja FROM tbl_posudba WHERE (id = SCOPE_IDENTITY())";
-            this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ISBN10", global::System.Data.SqlDbType.Float, 8, global::System.Data.ParameterDirection.Input, 0, 0, "ISBN10", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@korisnik_id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "korisnik_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@datum_izdavanja", global::System.Data.SqlDbType.DateTime, 8, global::System.Data.ParameterDirection.Input, 0, 0, "datum_izdavanja", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@datum_razduzenja", global::System.Data.SqlDbType.DateTime, 8, global::System.Data.ParameterDirection.Input, 0, 0, "datum_razduzenja", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[4].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[4].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ISBN10", global::System.Data.SqlDbType.Float, 8, global::System.Data.ParameterDirection.Input, 0, 0, "ISBN10", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[4].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@korisnik_id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "korisnik_id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[4].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@datum_izdavanja", global::System.Data.SqlDbType.DateTime, 8, global::System.Data.ParameterDirection.Input, 0, 0, "datum_izdavanja", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[4].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@datum_razduzenja", global::System.Data.SqlDbType.DateTime, 8, global::System.Data.ParameterDirection.Input, 0, 0, "datum_razduzenja", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[5] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[5].Connection = this.Connection;
+            this._commandCollection[5].CommandText = @"UPDATE       tbl_posudba
+SET                datum_razduzenja = @datum_razduzenja, razduzena = @razduzena
+WHERE        (id = @posudbaId);  
+SELECT id, ISBN10, korisnik_id, datum_izdavanja, datum_razduzenja, razduzena FROM tbl_posudba WHERE (id = @posudbaId)";
+            this._commandCollection[5].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[5].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@datum_razduzenja", global::System.Data.SqlDbType.DateTime, 8, global::System.Data.ParameterDirection.Input, 0, 0, "datum_razduzenja", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[5].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@razduzena", global::System.Data.SqlDbType.Bit, 1, global::System.Data.ParameterDirection.Input, 0, 0, "razduzena", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[5].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@posudbaId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6545,6 +6656,84 @@ SELECT id, ISBN10, korisnik_id, datum_izdavanja, datum_razduzenja FROM tbl_posud
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
         public virtual KnjiznicaDS.tbl_posudbaDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            KnjiznicaDS.tbl_posudbaDataTable dataTable = new KnjiznicaDS.tbl_posudbaDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillById(KnjiznicaDS.tbl_posudbaDataTable dataTable, int id) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(id));
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual KnjiznicaDS.tbl_posudbaDataTable GetDataById(int id) {
+            this.Adapter.SelectCommand = this.CommandCollection[1];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(id));
+            KnjiznicaDS.tbl_posudbaDataTable dataTable = new KnjiznicaDS.tbl_posudbaDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillByISBN10(KnjiznicaDS.tbl_posudbaDataTable dataTable, double ISBN10) {
+            this.Adapter.SelectCommand = this.CommandCollection[2];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((double)(ISBN10));
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual KnjiznicaDS.tbl_posudbaDataTable GetDataByISBN10(double ISBN10) {
+            this.Adapter.SelectCommand = this.CommandCollection[2];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((double)(ISBN10));
+            KnjiznicaDS.tbl_posudbaDataTable dataTable = new KnjiznicaDS.tbl_posudbaDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillByKorisnikId(KnjiznicaDS.tbl_posudbaDataTable dataTable, int korisnikId) {
+            this.Adapter.SelectCommand = this.CommandCollection[3];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(korisnikId));
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual KnjiznicaDS.tbl_posudbaDataTable GetDataByKorisnikId(int korisnikId) {
+            this.Adapter.SelectCommand = this.CommandCollection[3];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(korisnikId));
             KnjiznicaDS.tbl_posudbaDataTable dataTable = new KnjiznicaDS.tbl_posudbaDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -6583,7 +6772,7 @@ SELECT id, ISBN10, korisnik_id, datum_izdavanja, datum_razduzenja FROM tbl_posud
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_id, double Original_ISBN10, int Original_korisnik_id, global::System.Nullable<global::System.DateTime> Original_datum_izdavanja, global::System.Nullable<global::System.DateTime> Original_datum_razduzenja) {
+        public virtual int Delete(int Original_id, double Original_ISBN10, int Original_korisnik_id, global::System.Nullable<global::System.DateTime> Original_datum_izdavanja, global::System.Nullable<global::System.DateTime> Original_datum_razduzenja, bool Original_razduzena) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_id));
             this.Adapter.DeleteCommand.Parameters[1].Value = ((double)(Original_ISBN10));
             this.Adapter.DeleteCommand.Parameters[2].Value = ((int)(Original_korisnik_id));
@@ -6603,6 +6792,7 @@ SELECT id, ISBN10, korisnik_id, datum_izdavanja, datum_razduzenja FROM tbl_posud
                 this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[6].Value = global::System.DBNull.Value;
             }
+            this.Adapter.DeleteCommand.Parameters[7].Value = ((bool)(Original_razduzena));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -6623,7 +6813,7 @@ SELECT id, ISBN10, korisnik_id, datum_izdavanja, datum_razduzenja FROM tbl_posud
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(double ISBN10, int korisnik_id, global::System.Nullable<global::System.DateTime> datum_izdavanja, global::System.Nullable<global::System.DateTime> datum_razduzenja) {
+        public virtual int Insert(double ISBN10, int korisnik_id, global::System.Nullable<global::System.DateTime> datum_izdavanja, global::System.Nullable<global::System.DateTime> datum_razduzenja, bool razduzena) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((double)(ISBN10));
             this.Adapter.InsertCommand.Parameters[1].Value = ((int)(korisnik_id));
             if ((datum_izdavanja.HasValue == true)) {
@@ -6638,6 +6828,7 @@ SELECT id, ISBN10, korisnik_id, datum_izdavanja, datum_razduzenja FROM tbl_posud
             else {
                 this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
+            this.Adapter.InsertCommand.Parameters[4].Value = ((bool)(razduzena));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -6658,7 +6849,7 @@ SELECT id, ISBN10, korisnik_id, datum_izdavanja, datum_razduzenja FROM tbl_posud
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(double ISBN10, int korisnik_id, global::System.Nullable<global::System.DateTime> datum_izdavanja, global::System.Nullable<global::System.DateTime> datum_razduzenja, int Original_id, double Original_ISBN10, int Original_korisnik_id, global::System.Nullable<global::System.DateTime> Original_datum_izdavanja, global::System.Nullable<global::System.DateTime> Original_datum_razduzenja, int id) {
+        public virtual int Update(double ISBN10, int korisnik_id, global::System.Nullable<global::System.DateTime> datum_izdavanja, global::System.Nullable<global::System.DateTime> datum_razduzenja, bool razduzena, int Original_id, double Original_ISBN10, int Original_korisnik_id, global::System.Nullable<global::System.DateTime> Original_datum_izdavanja, global::System.Nullable<global::System.DateTime> Original_datum_razduzenja, bool Original_razduzena, int id) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((double)(ISBN10));
             this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(korisnik_id));
             if ((datum_izdavanja.HasValue == true)) {
@@ -6673,26 +6864,28 @@ SELECT id, ISBN10, korisnik_id, datum_izdavanja, datum_razduzenja FROM tbl_posud
             else {
                 this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_id));
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((double)(Original_ISBN10));
-            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_korisnik_id));
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((bool)(razduzena));
+            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_id));
+            this.Adapter.UpdateCommand.Parameters[6].Value = ((double)(Original_ISBN10));
+            this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Original_korisnik_id));
             if ((Original_datum_izdavanja.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((System.DateTime)(Original_datum_izdavanja.Value));
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((System.DateTime)(Original_datum_izdavanja.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
             }
             if ((Original_datum_razduzenja.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[10].Value = ((System.DateTime)(Original_datum_razduzenja.Value));
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((System.DateTime)(Original_datum_razduzenja.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[10].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[11].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[11].Value = ((int)(id));
+            this.Adapter.UpdateCommand.Parameters[12].Value = ((bool)(Original_razduzena));
+            this.Adapter.UpdateCommand.Parameters[13].Value = ((int)(id));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -6713,8 +6906,8 @@ SELECT id, ISBN10, korisnik_id, datum_izdavanja, datum_razduzenja FROM tbl_posud
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(double ISBN10, int korisnik_id, global::System.Nullable<global::System.DateTime> datum_izdavanja, global::System.Nullable<global::System.DateTime> datum_razduzenja, int Original_id, double Original_ISBN10, int Original_korisnik_id, global::System.Nullable<global::System.DateTime> Original_datum_izdavanja, global::System.Nullable<global::System.DateTime> Original_datum_razduzenja) {
-            return this.Update(ISBN10, korisnik_id, datum_izdavanja, datum_razduzenja, Original_id, Original_ISBN10, Original_korisnik_id, Original_datum_izdavanja, Original_datum_razduzenja, Original_id);
+        public virtual int Update(double ISBN10, int korisnik_id, global::System.Nullable<global::System.DateTime> datum_izdavanja, global::System.Nullable<global::System.DateTime> datum_razduzenja, bool razduzena, int Original_id, double Original_ISBN10, int Original_korisnik_id, global::System.Nullable<global::System.DateTime> Original_datum_izdavanja, global::System.Nullable<global::System.DateTime> Original_datum_razduzenja, bool Original_razduzena) {
+            return this.Update(ISBN10, korisnik_id, datum_izdavanja, datum_razduzenja, razduzena, Original_id, Original_ISBN10, Original_korisnik_id, Original_datum_izdavanja, Original_datum_razduzenja, Original_razduzena, Original_id);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6722,7 +6915,7 @@ SELECT id, ISBN10, korisnik_id, datum_izdavanja, datum_razduzenja FROM tbl_posud
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, false)]
         public virtual int InsertPosudba(double ISBN10, int korisnik_id, global::System.Nullable<global::System.DateTime> datum_izdavanja, global::System.Nullable<global::System.DateTime> datum_razduzenja) {
-            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[1];
+            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[4];
             command.Parameters[0].Value = ((double)(ISBN10));
             command.Parameters[1].Value = ((int)(korisnik_id));
             if ((datum_izdavanja.HasValue == true)) {
@@ -6737,6 +6930,37 @@ SELECT id, ISBN10, korisnik_id, datum_izdavanja, datum_razduzenja FROM tbl_posud
             else {
                 command.Parameters[3].Value = global::System.DBNull.Value;
             }
+            global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
+            if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                command.Connection.Open();
+            }
+            int returnValue;
+            try {
+                returnValue = command.ExecuteNonQuery();
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    command.Connection.Close();
+                }
+            }
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, false)]
+        public virtual int Razduzi(global::System.Nullable<global::System.DateTime> datum_razduzenja, bool razduzena, int posudbaId) {
+            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[5];
+            if ((datum_razduzenja.HasValue == true)) {
+                command.Parameters[0].Value = ((System.DateTime)(datum_razduzenja.Value));
+            }
+            else {
+                command.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            command.Parameters[1].Value = ((bool)(razduzena));
+            command.Parameters[2].Value = ((int)(posudbaId));
             global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
             if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -6884,6 +7108,8 @@ SELECT id, ISBN10, korisnik_id, datum_izdavanja, datum_razduzenja FROM tbl_posud
             tableMapping.ColumnMappings.Add("autor", "autor");
             tableMapping.ColumnMappings.Add("datum_izdavanja", "datum_izdavanja");
             tableMapping.ColumnMappings.Add("datum_razduzenja", "datum_razduzenja");
+            tableMapping.ColumnMappings.Add("razduzena", "razduzena");
+            tableMapping.ColumnMappings.Add("korisnik_id", "korisnik_id");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -6897,24 +7123,31 @@ SELECT id, ISBN10, korisnik_id, datum_izdavanja, datum_razduzenja FROM tbl_posud
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[3];
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[4];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT id, ime, prezime, ISBN10, naslov, autor, datum_izdavanja, datum_razduzenja" +
-                " FROM dbo.posudbe";
+            this._commandCollection[0].CommandText = "SELECT id, korisnik_id, ime, prezime, ISBN10, naslov, autor, datum_izdavanja, dat" +
+                "um_razduzenja, razduzena FROM posudbe";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = "SELECT        id, ime, prezime, ISBN10, naslov, autor, datum_izdavanja, datum_raz" +
-                "duzenja\r\nFROM            posudbe\r\nWHERE        (ISBN10 = @ISBN10)";
+            this._commandCollection[1].CommandText = "SELECT ISBN10, autor, datum_izdavanja, datum_razduzenja, id, ime, korisnik_id, na" +
+                "slov, prezime, razduzena FROM posudbe WHERE (ISBN10 = @ISBN10)";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ISBN10", global::System.Data.SqlDbType.Float, 8, global::System.Data.ParameterDirection.Input, 0, 0, "ISBN10", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[2].Connection = this.Connection;
-            this._commandCollection[2].CommandText = "SELECT        id, ime, prezime, ISBN10, naslov, autor, datum_izdavanja, datum_raz" +
-                "duzenja\r\nFROM            posudbe\r\nWHERE        (id = @korisnik_id)";
+            this._commandCollection[2].CommandText = "SELECT ISBN10, autor, datum_izdavanja, datum_razduzenja, id, ime, korisnik_id, na" +
+                "slov, prezime, razduzena FROM posudbe WHERE (id = @korisnik_id)";
             this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@korisnik_id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[3] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[3].Connection = this.Connection;
+            this._commandCollection[3].CommandText = "SELECT ISBN10, autor, datum_izdavanja, datum_razduzenja, id, ime, korisnik_id, na" +
+                "slov, prezime, razduzena FROM posudbe WHERE (razduzena = 0) AND (ISBN10 = @ISBN1" +
+                "0)";
+            this._commandCollection[3].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ISBN10", global::System.Data.SqlDbType.Float, 8, global::System.Data.ParameterDirection.Input, 0, 0, "ISBN10", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6988,6 +7221,32 @@ SELECT id, ISBN10, korisnik_id, datum_izdavanja, datum_razduzenja FROM tbl_posud
         public virtual KnjiznicaDS.posudbeDataTable GetDataByKorisnikId(int korisnik_id) {
             this.Adapter.SelectCommand = this.CommandCollection[2];
             this.Adapter.SelectCommand.Parameters[0].Value = ((int)(korisnik_id));
+            KnjiznicaDS.posudbeDataTable dataTable = new KnjiznicaDS.posudbeDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillByPosudeno(KnjiznicaDS.posudbeDataTable dataTable, double ISBN10) {
+            this.Adapter.SelectCommand = this.CommandCollection[3];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((double)(ISBN10));
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual KnjiznicaDS.posudbeDataTable GetDataByPosudeno(double ISBN10) {
+            this.Adapter.SelectCommand = this.CommandCollection[3];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((double)(ISBN10));
             KnjiznicaDS.posudbeDataTable dataTable = new KnjiznicaDS.posudbeDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;

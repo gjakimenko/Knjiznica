@@ -12,6 +12,9 @@ namespace Knjiznica {
 }
 
 namespace Knjiznica.KnjiznicaDSTableAdapters {
+    partial class posudbeTA
+    {
+    }
     
     
     public partial class tipTA {

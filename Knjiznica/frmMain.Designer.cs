@@ -38,20 +38,21 @@
             this.btnDodaj = new System.Windows.Forms.Button();
             this.btnAzuriraj = new System.Windows.Forms.Button();
             this.cmbKategorija = new System.Windows.Forms.ComboBox();
-            this.kategorijaBS = new System.Windows.Forms.BindingSource(this.components);
+            this.knjigaBS = new System.Windows.Forms.BindingSource(this.components);
             this.knjiznicaDS = new Knjiznica.KnjiznicaDS();
+            this.kategorijaBS = new System.Windows.Forms.BindingSource(this.components);
             this.lblKategorija = new System.Windows.Forms.Label();
             this.cmbIzdavac = new System.Windows.Forms.ComboBox();
             this.izdavacBS = new System.Windows.Forms.BindingSource(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.txtISBN13 = new System.Windows.Forms.TextBox();
-            this.knjigaBS = new System.Windows.Forms.BindingSource(this.components);
             this.txtISBN10 = new System.Windows.Forms.TextBox();
             this.lblISBN13 = new System.Windows.Forms.Label();
             this.lblISBN10 = new System.Windows.Forms.Label();
             this.nupKomada = new System.Windows.Forms.NumericUpDown();
             this.lblKomada = new System.Windows.Forms.Label();
             this.cmbTip = new System.Windows.Forms.ComboBox();
+            this.tipBS = new System.Windows.Forms.BindingSource(this.components);
             this.txtGodina = new System.Windows.Forms.TextBox();
             this.lblGodina = new System.Windows.Forms.Label();
             this.lblTip = new System.Windows.Forms.Label();
@@ -61,7 +62,15 @@
             this.lblNaslov = new System.Windows.Forms.Label();
             this.grpPrikaz = new System.Windows.Forms.GroupBox();
             this.dgvKatalog = new System.Windows.Forms.DataGridView();
-            this.tipBS = new System.Windows.Forms.BindingSource(this.components);
+            this.naslovDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.autorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tipidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.godinaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.izdavacidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.komadaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.iSBN10DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.iSBN13DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.kategorijaidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.tabKorisnici = new System.Windows.Forms.TabPage();
             this.scpKorisnici = new System.Windows.Forms.SplitContainer();
             this.grpKorUredi = new System.Windows.Forms.GroupBox();
@@ -98,6 +107,7 @@
             this.autorDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.datumizdavanjaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.datumrazduzenjaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.razduzena = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.posudbeBS = new System.Windows.Forms.BindingSource(this.components);
             this.knjigaTA = new Knjiznica.KnjiznicaDSTableAdapters.knjigaTA();
             this.kategorijaTA = new Knjiznica.KnjiznicaDSTableAdapters.kategorijaTA();
@@ -108,15 +118,6 @@
             this.tmrClearStatus = new System.Windows.Forms.Timer(this.components);
             this.korisnikTA = new Knjiznica.KnjiznicaDSTableAdapters.korisnikTA();
             this.posudbeTA = new Knjiznica.KnjiznicaDSTableAdapters.posudbeTA();
-            this.naslovDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.autorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tipidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.godinaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.izdavacidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.komadaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.iSBN10DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.iSBN13DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.kategorijaidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.tbcMenu.SuspendLayout();
             this.tabKatalog.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.spcKatalog)).BeginInit();
@@ -124,14 +125,14 @@
             this.spcKatalog.Panel2.SuspendLayout();
             this.spcKatalog.SuspendLayout();
             this.grpUredi.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kategorijaBS)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.knjiznicaDS)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.izdavacBS)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.knjigaBS)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.knjiznicaDS)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kategorijaBS)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.izdavacBS)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nupKomada)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tipBS)).BeginInit();
             this.grpPrikaz.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvKatalog)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tipBS)).BeginInit();
             this.tabKorisnici.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scpKorisnici)).BeginInit();
             this.scpKorisnici.Panel1.SuspendLayout();
@@ -281,15 +282,20 @@
             this.cmbKategorija.TabIndex = 8;
             this.cmbKategorija.ValueMember = "id";
             // 
-            // kategorijaBS
+            // knjigaBS
             // 
-            this.kategorijaBS.DataMember = "tbl_kategorija";
-            this.kategorijaBS.DataSource = this.knjiznicaDS;
+            this.knjigaBS.DataMember = "tbl_knjiga";
+            this.knjigaBS.DataSource = this.knjiznicaDS;
             // 
             // knjiznicaDS
             // 
             this.knjiznicaDS.DataSetName = "KnjiznicaDS";
             this.knjiznicaDS.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // kategorijaBS
+            // 
+            this.kategorijaBS.DataMember = "tbl_kategorija";
+            this.kategorijaBS.DataSource = this.knjiznicaDS;
             // 
             // lblKategorija
             // 
@@ -337,11 +343,6 @@
             this.txtISBN13.Name = "txtISBN13";
             this.txtISBN13.Size = new System.Drawing.Size(256, 20);
             this.txtISBN13.TabIndex = 7;
-            // 
-            // knjigaBS
-            // 
-            this.knjigaBS.DataMember = "tbl_knjiga";
-            this.knjigaBS.DataSource = this.knjiznicaDS;
             // 
             // txtISBN10
             // 
@@ -403,6 +404,11 @@
             this.cmbTip.Size = new System.Drawing.Size(256, 21);
             this.cmbTip.TabIndex = 2;
             this.cmbTip.ValueMember = "id";
+            // 
+            // tipBS
+            // 
+            this.tipBS.DataMember = "tbl_tip";
+            this.tipBS.DataSource = this.knjiznicaDS;
             // 
             // txtGodina
             // 
@@ -506,11 +512,91 @@
             this.dgvKatalog.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvKatalog.Size = new System.Drawing.Size(865, 515);
             this.dgvKatalog.TabIndex = 1;
+            this.dgvKatalog.SelectionChanged += new System.EventHandler(this.dgvKatalog_SelectionChanged);
             // 
-            // tipBS
+            // naslovDataGridViewTextBoxColumn
             // 
-            this.tipBS.DataMember = "tbl_tip";
-            this.tipBS.DataSource = this.knjiznicaDS;
+            this.naslovDataGridViewTextBoxColumn.DataPropertyName = "naslov";
+            this.naslovDataGridViewTextBoxColumn.HeaderText = "Naslov";
+            this.naslovDataGridViewTextBoxColumn.Name = "naslovDataGridViewTextBoxColumn";
+            this.naslovDataGridViewTextBoxColumn.Width = 65;
+            // 
+            // autorDataGridViewTextBoxColumn
+            // 
+            this.autorDataGridViewTextBoxColumn.DataPropertyName = "autor";
+            this.autorDataGridViewTextBoxColumn.HeaderText = "Autor";
+            this.autorDataGridViewTextBoxColumn.Name = "autorDataGridViewTextBoxColumn";
+            this.autorDataGridViewTextBoxColumn.Width = 57;
+            // 
+            // tipidDataGridViewTextBoxColumn
+            // 
+            this.tipidDataGridViewTextBoxColumn.DataPropertyName = "tip_id";
+            this.tipidDataGridViewTextBoxColumn.DataSource = this.tipBS;
+            this.tipidDataGridViewTextBoxColumn.DisplayMember = "naziv";
+            this.tipidDataGridViewTextBoxColumn.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            this.tipidDataGridViewTextBoxColumn.HeaderText = "Tip";
+            this.tipidDataGridViewTextBoxColumn.Name = "tipidDataGridViewTextBoxColumn";
+            this.tipidDataGridViewTextBoxColumn.ReadOnly = true;
+            this.tipidDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.tipidDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.tipidDataGridViewTextBoxColumn.ValueMember = "id";
+            this.tipidDataGridViewTextBoxColumn.Width = 47;
+            // 
+            // godinaDataGridViewTextBoxColumn
+            // 
+            this.godinaDataGridViewTextBoxColumn.DataPropertyName = "godina";
+            this.godinaDataGridViewTextBoxColumn.HeaderText = "Godina";
+            this.godinaDataGridViewTextBoxColumn.Name = "godinaDataGridViewTextBoxColumn";
+            this.godinaDataGridViewTextBoxColumn.Width = 66;
+            // 
+            // izdavacidDataGridViewTextBoxColumn
+            // 
+            this.izdavacidDataGridViewTextBoxColumn.DataPropertyName = "izdavac_id";
+            this.izdavacidDataGridViewTextBoxColumn.DataSource = this.izdavacBS;
+            this.izdavacidDataGridViewTextBoxColumn.DisplayMember = "naziv";
+            this.izdavacidDataGridViewTextBoxColumn.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            this.izdavacidDataGridViewTextBoxColumn.HeaderText = "Izdavač";
+            this.izdavacidDataGridViewTextBoxColumn.Name = "izdavacidDataGridViewTextBoxColumn";
+            this.izdavacidDataGridViewTextBoxColumn.ReadOnly = true;
+            this.izdavacidDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.izdavacidDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.izdavacidDataGridViewTextBoxColumn.ValueMember = "id";
+            this.izdavacidDataGridViewTextBoxColumn.Width = 70;
+            // 
+            // komadaDataGridViewTextBoxColumn
+            // 
+            this.komadaDataGridViewTextBoxColumn.DataPropertyName = "komada";
+            this.komadaDataGridViewTextBoxColumn.HeaderText = "Komada";
+            this.komadaDataGridViewTextBoxColumn.Name = "komadaDataGridViewTextBoxColumn";
+            this.komadaDataGridViewTextBoxColumn.Width = 71;
+            // 
+            // iSBN10DataGridViewTextBoxColumn
+            // 
+            this.iSBN10DataGridViewTextBoxColumn.DataPropertyName = "ISBN10";
+            this.iSBN10DataGridViewTextBoxColumn.HeaderText = "ISBN10";
+            this.iSBN10DataGridViewTextBoxColumn.Name = "iSBN10DataGridViewTextBoxColumn";
+            this.iSBN10DataGridViewTextBoxColumn.Width = 69;
+            // 
+            // iSBN13DataGridViewTextBoxColumn
+            // 
+            this.iSBN13DataGridViewTextBoxColumn.DataPropertyName = "ISBN13";
+            this.iSBN13DataGridViewTextBoxColumn.HeaderText = "ISBN13";
+            this.iSBN13DataGridViewTextBoxColumn.Name = "iSBN13DataGridViewTextBoxColumn";
+            this.iSBN13DataGridViewTextBoxColumn.Width = 69;
+            // 
+            // kategorijaidDataGridViewTextBoxColumn
+            // 
+            this.kategorijaidDataGridViewTextBoxColumn.DataPropertyName = "kategorija_id";
+            this.kategorijaidDataGridViewTextBoxColumn.DataSource = this.kategorijaBS;
+            this.kategorijaidDataGridViewTextBoxColumn.DisplayMember = "naziv";
+            this.kategorijaidDataGridViewTextBoxColumn.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
+            this.kategorijaidDataGridViewTextBoxColumn.HeaderText = "Kategorija";
+            this.kategorijaidDataGridViewTextBoxColumn.Name = "kategorijaidDataGridViewTextBoxColumn";
+            this.kategorijaidDataGridViewTextBoxColumn.ReadOnly = true;
+            this.kategorijaidDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.kategorijaidDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.kategorijaidDataGridViewTextBoxColumn.ValueMember = "id";
+            this.kategorijaidDataGridViewTextBoxColumn.Width = 79;
             // 
             // tabKorisnici
             // 
@@ -811,7 +897,8 @@
             this.naslovDataGridViewTextBoxColumn1,
             this.autorDataGridViewTextBoxColumn1,
             this.datumizdavanjaDataGridViewTextBoxColumn,
-            this.datumrazduzenjaDataGridViewTextBoxColumn});
+            this.datumrazduzenjaDataGridViewTextBoxColumn,
+            this.razduzena});
             this.dgvPosudbe.DataSource = this.posudbeBS;
             this.dgvPosudbe.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvPosudbe.Location = new System.Drawing.Point(3, 16);
@@ -819,6 +906,7 @@
             this.dgvPosudbe.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvPosudbe.Size = new System.Drawing.Size(1214, 518);
             this.dgvPosudbe.TabIndex = 1;
+            this.dgvPosudbe.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPosudbe_CellDoubleClick);
             // 
             // idDataGridViewTextBoxColumn1
             // 
@@ -876,6 +964,16 @@
             this.datumrazduzenjaDataGridViewTextBoxColumn.Name = "datumrazduzenjaDataGridViewTextBoxColumn";
             this.datumrazduzenjaDataGridViewTextBoxColumn.Width = 118;
             // 
+            // razduzena
+            // 
+            this.razduzena.DataPropertyName = "razduzena";
+            this.razduzena.FalseValue = "0";
+            this.razduzena.HeaderText = "razduzena";
+            this.razduzena.Name = "razduzena";
+            this.razduzena.ReadOnly = true;
+            this.razduzena.TrueValue = "1";
+            this.razduzena.Width = 62;
+            // 
             // posudbeBS
             // 
             this.posudbeBS.DataMember = "posudbe";
@@ -923,90 +1021,6 @@
             // 
             this.posudbeTA.ClearBeforeFill = true;
             // 
-            // naslovDataGridViewTextBoxColumn
-            // 
-            this.naslovDataGridViewTextBoxColumn.DataPropertyName = "naslov";
-            this.naslovDataGridViewTextBoxColumn.HeaderText = "Naslov";
-            this.naslovDataGridViewTextBoxColumn.Name = "naslovDataGridViewTextBoxColumn";
-            this.naslovDataGridViewTextBoxColumn.Width = 65;
-            // 
-            // autorDataGridViewTextBoxColumn
-            // 
-            this.autorDataGridViewTextBoxColumn.DataPropertyName = "autor";
-            this.autorDataGridViewTextBoxColumn.HeaderText = "Autor";
-            this.autorDataGridViewTextBoxColumn.Name = "autorDataGridViewTextBoxColumn";
-            this.autorDataGridViewTextBoxColumn.Width = 57;
-            // 
-            // tipidDataGridViewTextBoxColumn
-            // 
-            this.tipidDataGridViewTextBoxColumn.DataPropertyName = "tip_id";
-            this.tipidDataGridViewTextBoxColumn.DataSource = this.tipBS;
-            this.tipidDataGridViewTextBoxColumn.DisplayMember = "naziv";
-            this.tipidDataGridViewTextBoxColumn.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.tipidDataGridViewTextBoxColumn.HeaderText = "Tip";
-            this.tipidDataGridViewTextBoxColumn.Name = "tipidDataGridViewTextBoxColumn";
-            this.tipidDataGridViewTextBoxColumn.ReadOnly = true;
-            this.tipidDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.tipidDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.tipidDataGridViewTextBoxColumn.ValueMember = "id";
-            this.tipidDataGridViewTextBoxColumn.Width = 47;
-            // 
-            // godinaDataGridViewTextBoxColumn
-            // 
-            this.godinaDataGridViewTextBoxColumn.DataPropertyName = "godina";
-            this.godinaDataGridViewTextBoxColumn.HeaderText = "Godina";
-            this.godinaDataGridViewTextBoxColumn.Name = "godinaDataGridViewTextBoxColumn";
-            this.godinaDataGridViewTextBoxColumn.Width = 66;
-            // 
-            // izdavacidDataGridViewTextBoxColumn
-            // 
-            this.izdavacidDataGridViewTextBoxColumn.DataPropertyName = "izdavac_id";
-            this.izdavacidDataGridViewTextBoxColumn.DataSource = this.izdavacBS;
-            this.izdavacidDataGridViewTextBoxColumn.DisplayMember = "naziv";
-            this.izdavacidDataGridViewTextBoxColumn.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.izdavacidDataGridViewTextBoxColumn.HeaderText = "Izdavač";
-            this.izdavacidDataGridViewTextBoxColumn.Name = "izdavacidDataGridViewTextBoxColumn";
-            this.izdavacidDataGridViewTextBoxColumn.ReadOnly = true;
-            this.izdavacidDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.izdavacidDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.izdavacidDataGridViewTextBoxColumn.ValueMember = "id";
-            this.izdavacidDataGridViewTextBoxColumn.Width = 70;
-            // 
-            // komadaDataGridViewTextBoxColumn
-            // 
-            this.komadaDataGridViewTextBoxColumn.DataPropertyName = "komada";
-            this.komadaDataGridViewTextBoxColumn.HeaderText = "Komada";
-            this.komadaDataGridViewTextBoxColumn.Name = "komadaDataGridViewTextBoxColumn";
-            this.komadaDataGridViewTextBoxColumn.Width = 71;
-            // 
-            // iSBN10DataGridViewTextBoxColumn
-            // 
-            this.iSBN10DataGridViewTextBoxColumn.DataPropertyName = "ISBN10";
-            this.iSBN10DataGridViewTextBoxColumn.HeaderText = "ISBN10";
-            this.iSBN10DataGridViewTextBoxColumn.Name = "iSBN10DataGridViewTextBoxColumn";
-            this.iSBN10DataGridViewTextBoxColumn.Width = 69;
-            // 
-            // iSBN13DataGridViewTextBoxColumn
-            // 
-            this.iSBN13DataGridViewTextBoxColumn.DataPropertyName = "ISBN13";
-            this.iSBN13DataGridViewTextBoxColumn.HeaderText = "ISBN13";
-            this.iSBN13DataGridViewTextBoxColumn.Name = "iSBN13DataGridViewTextBoxColumn";
-            this.iSBN13DataGridViewTextBoxColumn.Width = 69;
-            // 
-            // kategorijaidDataGridViewTextBoxColumn
-            // 
-            this.kategorijaidDataGridViewTextBoxColumn.DataPropertyName = "kategorija_id";
-            this.kategorijaidDataGridViewTextBoxColumn.DataSource = this.kategorijaBS;
-            this.kategorijaidDataGridViewTextBoxColumn.DisplayMember = "naziv";
-            this.kategorijaidDataGridViewTextBoxColumn.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
-            this.kategorijaidDataGridViewTextBoxColumn.HeaderText = "Kategorija";
-            this.kategorijaidDataGridViewTextBoxColumn.Name = "kategorijaidDataGridViewTextBoxColumn";
-            this.kategorijaidDataGridViewTextBoxColumn.ReadOnly = true;
-            this.kategorijaidDataGridViewTextBoxColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.kategorijaidDataGridViewTextBoxColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.kategorijaidDataGridViewTextBoxColumn.ValueMember = "id";
-            this.kategorijaidDataGridViewTextBoxColumn.Width = 79;
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1016,6 +1030,7 @@
             this.Controls.Add(this.tbcMenu);
             this.Name = "frmMain";
             this.Text = "Knjižnica";
+            this.Activated += new System.EventHandler(this.frmMain_Activated);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.Load += new System.EventHandler(this.frmMain_Load);
             this.tbcMenu.ResumeLayout(false);
@@ -1026,14 +1041,14 @@
             this.spcKatalog.ResumeLayout(false);
             this.grpUredi.ResumeLayout(false);
             this.grpUredi.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.kategorijaBS)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.knjiznicaDS)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.izdavacBS)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.knjigaBS)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.knjiznicaDS)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.kategorijaBS)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.izdavacBS)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nupKomada)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tipBS)).EndInit();
             this.grpPrikaz.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvKatalog)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tipBS)).EndInit();
             this.tabKorisnici.ResumeLayout(false);
             this.scpKorisnici.Panel1.ResumeLayout(false);
             this.scpKorisnici.Panel2.ResumeLayout(false);
@@ -1128,14 +1143,6 @@
         private KnjiznicaDSTableAdapters.korisnikTA korisnikTA;
         private System.Windows.Forms.BindingSource posudbeBS;
         private KnjiznicaDSTableAdapters.posudbeTA posudbeTA;
-        private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn imeDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn prezimeDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn iSBN10DataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn naslovDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn autorDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn datumizdavanjaDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn datumrazduzenjaDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn naslovDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn autorDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn tipidDataGridViewTextBoxColumn;
@@ -1145,6 +1152,15 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn iSBN10DataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn iSBN13DataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn kategorijaidDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn imeDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn prezimeDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn iSBN10DataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn naslovDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn autorDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn datumizdavanjaDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn datumrazduzenjaDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn razduzena;
     }
 }
 

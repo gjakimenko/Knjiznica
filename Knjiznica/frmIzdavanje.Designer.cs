@@ -65,6 +65,7 @@
             this.kategorijaTA = new Knjiznica.KnjiznicaDSTableAdapters.kategorijaTA();
             this.korisnikTA = new Knjiznica.KnjiznicaDSTableAdapters.korisnikTA();
             this.grpAktivnosti = new System.Windows.Forms.GroupBox();
+            this.btnOdustani = new System.Windows.Forms.Button();
             this.lblDatumRazduzivanja = new System.Windows.Forms.Label();
             this.lblDatumPosudbe = new System.Windows.Forms.Label();
             this.dtpDatumRazduzivanja = new System.Windows.Forms.DateTimePicker();
@@ -377,6 +378,7 @@
             // 
             // grpAktivnosti
             // 
+            this.grpAktivnosti.Controls.Add(this.btnOdustani);
             this.grpAktivnosti.Controls.Add(this.lblDatumRazduzivanja);
             this.grpAktivnosti.Controls.Add(this.lblDatumPosudbe);
             this.grpAktivnosti.Controls.Add(this.dtpDatumRazduzivanja);
@@ -387,6 +389,17 @@
             this.grpAktivnosti.Size = new System.Drawing.Size(544, 70);
             this.grpAktivnosti.TabIndex = 1;
             this.grpAktivnosti.TabStop = false;
+            // 
+            // btnOdustani
+            // 
+            this.btnOdustani.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnOdustani.Location = new System.Drawing.Point(324, 14);
+            this.btnOdustani.Name = "btnOdustani";
+            this.btnOdustani.Size = new System.Drawing.Size(104, 44);
+            this.btnOdustani.TabIndex = 5;
+            this.btnOdustani.Text = "Odustani";
+            this.btnOdustani.UseVisualStyleBackColor = true;
+            this.btnOdustani.Click += new System.EventHandler(this.btnOdustani_Click);
             // 
             // lblDatumRazduzivanja
             // 
@@ -422,7 +435,7 @@
             // 
             // btnZaduzi
             // 
-            this.btnZaduzi.Location = new System.Drawing.Point(427, 15);
+            this.btnZaduzi.Location = new System.Drawing.Point(434, 14);
             this.btnZaduzi.Name = "btnZaduzi";
             this.btnZaduzi.Size = new System.Drawing.Size(104, 44);
             this.btnZaduzi.TabIndex = 3;
@@ -454,6 +467,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnOdustani;
             this.ClientSize = new System.Drawing.Size(569, 280);
             this.ControlBox = false;
             this.Controls.Add(this.grpAktivnosti);
@@ -526,5 +540,6 @@
         private KnjiznicaDSTableAdapters.posudbaTA posudbaTA;
         private KnjiznicaDSTableAdapters.TableAdapterManager tableAdapterManager;
         private System.Windows.Forms.TextBox txtClanID;
+        private System.Windows.Forms.Button btnOdustani;
     }
 }

@@ -6,6 +6,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Data.Sql;
+using System.Data.SqlClient;
+using System.Data.SqlTypes;
 
 namespace Knjiznica
 {
@@ -15,7 +18,8 @@ namespace Knjiznica
         {
             InitializeComponent();
         }
-
+        
+       
         private void frmMain_Load(object sender, EventArgs e)
         {
             // popunjavanje table adaptera s podacima
@@ -30,6 +34,7 @@ namespace Knjiznica
 
             // 3. tab
             this.posudbeTA.Fill(this.knjiznicaDS.posudbe);
+
         }
 
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
@@ -52,40 +57,34 @@ namespace Knjiznica
 
         private int findOrCreateTip(string tipNaziv)
         {
-            // create new datasource and table adapter for temp data
-            KnjiznicaDS newKnjiznicaDS = new KnjiznicaDS();
-            KnjiznicaDSTableAdapters.tipTA singleTipTA = new KnjiznicaDSTableAdapters.tipTA();
-            singleTipTA.FillByNaziv(newKnjiznicaDS.tbl_tip, tipNaziv);
+            tipTA.FillByNaziv(this.knjiznicaDS.tbl_tip, tipNaziv);
 
-            if (newKnjiznicaDS.tbl_tip.Count > 0)
+            if (this.knjiznicaDS.tbl_tip.Count > 0)
             {
-                return newKnjiznicaDS.tbl_tip.First().id;
+                return this.knjiznicaDS.tbl_tip.First().id;
             }
             else
             {
-                singleTipTA.InsertByNaziv(tipNaziv);
-                this.tipTA.Fill(knjiznicaDS.tbl_tip);
+                tipTA.InsertByNaziv(tipNaziv);
                 return findOrCreateTip(tipNaziv);
             }
+          
         }
 
         private int findOrCreateIzdavac(string izdavacNaziv)
         {
-            // create new datasource and table adapter for temp data
-            KnjiznicaDS newKnjiznicaDS = new KnjiznicaDS();
-            KnjiznicaDSTableAdapters.izdavacTA singleIzdavacTA = new KnjiznicaDSTableAdapters.izdavacTA();
-            singleIzdavacTA.FillByNaziv(newKnjiznicaDS.tbl_izdavac, izdavacNaziv);
+            izdavacTA.FillByNaziv(this.knjiznicaDS.tbl_izdavac, izdavacNaziv);
 
-            if (newKnjiznicaDS.tbl_izdavac.Count > 0)
+            if (this.knjiznicaDS.tbl_izdavac.Count > 0)
             {
-                return newKnjiznicaDS.tbl_izdavac.First().id;
+                return this.knjiznicaDS.tbl_izdavac.First().id;
             }
             else
             {
-                singleIzdavacTA.InsertByNaziv(izdavacNaziv);
-                this.izdavacTA.Fill(knjiznicaDS.tbl_izdavac);
+                izdavacTA.InsertByNaziv(izdavacNaziv);
                 return findOrCreateIzdavac(izdavacNaziv);
             }
+
         }
 
         private void tmrClearStatus_Tick(object sender, EventArgs e)
@@ -97,19 +96,34 @@ namespace Knjiznica
 
         private void btnDodaj_Click(object sender, EventArgs e)
         {
-            this.knjigaBS.AddNew();
-            nupKomada.Value = 0;
+            try
+            {
+                this.knjigaBS.AddNew();
+                nupKomada.Value = 0;
+            }
+            catch
+            {
+                MessageBox.Show("Polje ne smije biti prazno...");
+            }
         }
 
         private void btnAzuriraj_Click(object sender, EventArgs e)
         {
-            //MessageBox.Show(findOrCreateTip(cmbTip.Text).ToString());
-            dgvKatalog.CurrentRow.Cells[2].Value = findOrCreateTip(cmbTip.Text);
-            dgvKatalog.CurrentRow.Cells[4].Value = findOrCreateIzdavac(cmbIzdavac.Text);
+            int tipId = findOrCreateTip(cmbTip.Text);
+            this.tipTA.Update(knjiznicaDS);
+            this.tipTA.Fill(this.knjiznicaDS.tbl_tip);
+            dgvKatalog.CurrentRow.Cells[2].Value = tipId;
+
+            int izdavacId = findOrCreateIzdavac(cmbIzdavac.Text);
+            this.izdavacTA.Update(knjiznicaDS);
+            this.izdavacTA.Fill(this.knjiznicaDS.tbl_izdavac);
+            dgvKatalog.CurrentRow.Cells[4].Value = izdavacId;
 
             this.knjigaBS.EndEdit();
             this.knjigaTA.Update(knjiznicaDS);
             dgvKatalog.Refresh();
+
+            checkIfBookAvailable();
 
             writeToStatus("Katalog ažuriran", 5000);
         }
@@ -121,6 +135,7 @@ namespace Knjiznica
             this.knjigaTA.Update(knjiznicaDS.tbl_knjiga);
             // refresh data grid view
             dgvKatalog.Refresh();
+           
         }
 
         private void btnKorDodaj_Click(object sender, EventArgs e)
@@ -170,8 +185,48 @@ namespace Knjiznica
 
         private void bntZaduzi_Click(object sender, EventArgs e)
         {
+            if (!checkIfBookAvailable())
+            {
+                MessageBox.Show("Nema više raspoloživih knjiga.");
+                return;
+            }
+
             frmIzdavanje FrmIzdavanje = new frmIzdavanje(txtISBN10.Text);
             FrmIzdavanje.Show();
         }
+
+        private void dgvKatalog_SelectionChanged(object sender, EventArgs e)
+        {
+            checkIfBookAvailable();
+        }
+
+        private bool checkIfBookAvailable()
+        {
+            posudbeTA.FillByPosudeno(knjiznicaDS.posudbe, Convert.ToDouble(txtISBN10.Text));
+            if (this.knjiznicaDS.posudbe.Count < nupKomada.Value)
+            {
+                bntZaduzi.Enabled = true;
+                return true;
+            }
+            else
+            {
+                bntZaduzi.Enabled = false;
+                return false;
+            }
+        }
+
+        private void frmMain_Activated(object sender, EventArgs e)
+        {
+            checkIfBookAvailable();
+            posudbeTA.Fill(this.knjiznicaDS.posudbe);
+        }
+
+        private void dgvPosudbe_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            frmIzdavanje FrmIzdavanje = new frmIzdavanje(Convert.ToInt32(dgvPosudbe[0, e.RowIndex].Value));
+            FrmIzdavanje.setActionName("Razduživanje");
+            FrmIzdavanje.Show();
+        }
+
     }
 }
